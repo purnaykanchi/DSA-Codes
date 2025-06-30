@@ -1,23 +1,36 @@
 #include <stdio.h>
-int main() {
-    int arr[10] = {6, 12, 0, 18, 11, 99, 55, 45, 34, 2};
-    int n = 10;
-    int i, j, position, swap;
-    for (i = 0; i < (n - 1); i++) {
-        position = i;
-        for (j = i + 1; j < n; j++) {
-            if (arr[position] > arr[j]) {
-                position = j;
+int *selection_sort(int *a, int n){
+    int i, index, temp;
+    for (i = 0; i < n - 1; i++){
+        index = i;
+        for (int j = i + 1; j < n; j++){
+            if (*(a+j) < *(a+index)){
+                index = j;
             }
         }
-        if (position != i) {
-            swap = arr[i];
-            arr[i] = arr[position];
-            arr[position] = swap;
-        }
+        temp = *(a+i);
+        *(a+i) = *(a+index);
+        *(a+index) = temp;
     }
-    for (i = 0; i < n; i++) {
-        printf("%d\t", arr[i]);
+    return a;
+}
+int main(){
+    int i, a[20], n,ch;
+    printf("Enter the number of terms of the array: ");
+    scanf("%d", &n);
+    for (i = 0; i < n; i++){
+        printf("Enter element %d: ", i + 1);
+        scanf("%d", &a[i]);
+    }
+    printf("The array is:\t");
+    for (i = 0; i < n; i++){
+        printf("%d\t", a[i]);
+    }
+    selection_sort(a,n);
+    printf("\n");
+    printf("The array is:\t");
+    for (i = 0; i < n; i++){
+        printf("%d\t", a[i]);
     }
     return 0;
 }
